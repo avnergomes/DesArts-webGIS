@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Des Arts Wine Bar - Phase 1 Location Assessment | WebGIS</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🍷</span>
+                <div class="logo-text">
+                    <h1>Des Arts Wine Bar</h1>
+                    <span class="subtitle">Phase 1 Location & Demand Assessment</span>
+                </div>
+            </div>
+            <div class="header-meta">
+                <span class="date">December 2025</span>
+                <span class="author">Prepared by: Avner Gomes</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Executive Summary Card -->
+            <div class="card executive-summary">
+                <h2>📊 Executive Summary</h2>
+                <div class="classification-badge secondary">
+                    SECONDARY-TRACK / NEAR-SPINE
+                </div>
+                <p class="summary-text">The asset sits within 1-3 min walk of primary tourist nodes. Walk-in capture viable in peak season.</p>
+                
+                <div class="demand-model">
+                    <span class="label">Demand Model:</span>
+                    <span class="value hybrid">HYBRID</span>
+                </div>
+            </div>
+
+            <!-- Layer Controls -->
+            <div class="card layer-controls">
+                <h2>🗺️ Map Layers</h2>
+                <div class="layer-group">
+                    <button class="layer-btn active" data-layer="routes">
+                        <span class="layer-icon">🚶</span>
+                        <span class="layer-name">Pedestrian Routes</span>
+                    </button>
+                    <button class="layer-btn active" data-layer="competitors">
+                        <span class="layer-icon">🍷</span>
+                        <span class="layer-name">Competitors</span>
+                    </button>
+                    <button class="layer-btn active" data-layer="landmarks">
+                        <span class="layer-icon">📍</span>
+                        <span class="layer-name">Landmarks & Attractions</span>
+                    </button>
+                    <button class="layer-btn" data-layer="distance">
+                        <span class="layer-icon">⭕</span>
+                        <span class="layer-name">Distance Bands</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Footfall Analysis -->
+            <div class="card footfall-analysis">
+                <h2>📈 Footfall Analysis</h2>
+                <div class="footfall-grid">
+                    <div class="footfall-item">
+                        <span class="footfall-value" id="des-arts-footfall">25</span>
+                        <span class="footfall-label">Des Arts Index</span>
+                    </div>
+                    <div class="footfall-item">
+                        <span class="footfall-value" id="avg-competitor-footfall">--</span>
+                        <span class="footfall-label">Avg Competitor</span>
+                    </div>
+                    <div class="footfall-item">
+                        <span class="footfall-value" id="primary-spine-count">--</span>
+                        <span class="footfall-label">On Primary Spine</span>
+                    </div>
+                    <div class="footfall-item">
+                        <span class="footfall-value" id="primary-avg-footfall">--</span>
+                        <span class="footfall-label">Spine Avg Footfall</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Details -->
+            <div class="card property-details">
+                <h2>🏠 Property Details</h2>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">ADDRESS</span>
+                        <span class="detail-value">Piazza San Giusto 9</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">CAPACITY</span>
+                        <span class="detail-value">38 covers (22 in + 16 out)</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">TURNOVER</span>
+                        <span class="detail-value">€300-350k/year</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">EBITDA</span>
+                        <span class="detail-value">€60-70k/year</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">RENT</span>
+                        <span class="detail-value">€2,900/month</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">STAFF</span>
+                        <span class="detail-value">4 permanent</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="card legend">
+                <h2>LEGEND</h2>
+                
+                <div class="legend-section">
+                    <h3>SUBJECT PROPERTY</h3>
+                    <div class="legend-item">
+                        <span class="legend-marker des-arts"></span>
+                        <span>Des Arts Wine Bar</span>
+                    </div>
+                </div>
+
+                <div class="legend-section">
+                    <h3>ROUTE TYPES</h3>
+                    <div class="legend-item">
+                        <span class="legend-line primary-route"></span>
+                        <span>Primary Pedestrian</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-line secondary-route"></span>
+                        <span>Secondary Route</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-line tertiary-route"></span>
+                        <span>Tertiary / Off-track</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-line walls-route"></span>
+                        <span>City Walls Path</span>
+                    </div>
+                </div>
+
+                <div class="legend-section">
+                    <h3>LANDMARK CATEGORIES</h3>
+                    <div class="legend-item">
+                        <span class="legend-marker primary-attraction"></span>
+                        <span>Primary Attraction</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-marker secondary-attraction"></span>
+                        <span>Secondary Attraction</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-marker entry-point"></span>
+                        <span>Entry Point / Gate</span>
+                    </div>
+                </div>
+
+                <div class="legend-section">
+                    <h3>COMPETITOR TRACK POSITION</h3>
+                    <div class="legend-item">
+                        <span class="legend-marker on-track-marker"></span>
+                        <span>Primary Spine</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-marker near-track-marker"></span>
+                        <span>Secondary</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-marker off-track-marker"></span>
+                        <span>Off-track</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Map Container -->
+        <main class="map-container">
+            <div id="map"></div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="sidebar-right">
+            <!-- Walking Distances -->
+            <div class="card walking-distances">
+                <h2>🚶 Walking Distances</h2>
+                <table class="distance-table">
+                    <thead>
+                        <tr>
+                            <th>DESTINATION</th>
+                            <th>DISTANCE</th>
+                            <th>TIME</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Piazza San Michele</td>
+                            <td>114m</td>
+                            <td class="time-good">1.4 min</td>
+                        </tr>
+                        <tr>
+                            <td>Piazza Napoleone</td>
+                            <td>187m</td>
+                            <td class="time-good">2.4 min</td>
+                        </tr>
+                        <tr>
+                            <td>Duomo San Martino</td>
+                            <td>237m</td>
+                            <td class="time-good">2.8 min</td>
+                        </tr>
+                        <tr>
+                            <td>Piazza Anfiteatro</td>
+                            <td>536m</td>
+                            <td class="time-medium">6.4 min</td>
+                        </tr>
+                        <tr>
+                            <td>Rail Station</td>
+                            <td>658m</td>
+                            <td class="time-medium">8.0 min</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Competitor Analysis -->
+            <div class="card competitor-analysis">
+                <h2>📊 Competitor Analysis</h2>
+                <div class="chart-container">
+                    <canvas id="competitorChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Tourism Stats -->
+            <div class="card tourism-stats">
+                <h2>📈 Lucca Tourism 2024</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-value">385,595</span>
+                        <span class="stat-label">Arrivals</span>
+                        <span class="stat-change positive">+8.3%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">1.03M</span>
+                        <span class="stat-label">Overnight Stays</span>
+                        <span class="stat-change positive">+8.9%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">2.68</span>
+                        <span class="stat-label">Avg. Stay (nights)</span>
+                        <span class="stat-change neutral">Stable</span>
+                    </div>
+                </div>
+                <div class="seasonality-note">
+                    <span class="warning-icon">⚠️</span>
+                    <span>70% of visits concentrated in May-September</span>
+                </div>
+            </div>
+
+            <!-- Key Risks -->
+            <div class="card key-risks">
+                <h2>⚡ Key Risks</h2>
+                <div class="risk-items">
+                    <div class="risk-item">
+                        <span class="risk-label">Seasonality</span>
+                        <div class="risk-bar high"></div>
+                    </div>
+                    <div class="risk-item">
+                        <span class="risk-label">Terrace Permit</span>
+                        <div class="risk-bar high"></div>
+                    </div>
+                    <div class="risk-item">
+                        <span class="risk-label">Competition</span>
+                        <div class="risk-bar medium"></div>
+                    </div>
+                    <div class="risk-item">
+                        <span class="risk-label">Reputation</span>
+                        <div class="risk-bar low"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
